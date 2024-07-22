@@ -1,0 +1,12 @@
+<h1>{{ item.name }}</h1>
+<p>Quantity In Stock: {{ item.quantityInStock }}</p>
+<p>Quantity Sold: {{ item.quantitySold }}</p>
+<p>Revenue: {{ item.revenue }}</p>
+<p>Price: {{ item.price }}</p>
+<p>Suppliers:
+    {% for supplier in item.supplier.all %}
+        {{ supplier.name }}{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+</p>
+<a href="{% url 'item_edit' pk=item.pk %}">Edit</a>
+<a href="{% url 'item_list' %}">Back to list</a>

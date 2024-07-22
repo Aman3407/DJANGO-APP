@@ -1,0 +1,8 @@
+<h1>Supplier List</h1>
+<a href="{% url 'supplier_new' %}">Add New Supplier</a>
+<ul>
+    {% for supplier in suppliers %}
+        <li>{{ supplier.name }}</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'item_list' %}">Back to Item List</a>

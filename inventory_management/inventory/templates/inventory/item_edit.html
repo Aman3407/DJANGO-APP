@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% if form.instance.pk %}Edit{% else %}New{% endif %} Item</title>
+</head>
+<body>
+    <h2>{% if form.instance.pk %}Edit{% else %}New{% endif %} Item</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div>
+            {{ form.name.label_tag }}<br>
+            {{ form.name }}
+            {{ form.name.errors }}
+        </div>
+        <div>
+            {{ form.quantityInStock.label_tag }}<br>
+            {{ form.quantityInStock }}
+            {{ form.quantityInStock.errors }}
+        </div>
+        <div>
+            {{ form.quantitySold.label_tag }}<br>
+            {{ form.quantitySold }}
+            {{ form.quantitySold.errors }}
+        </div>
+        <div>
+            {{ form.revenue.label_tag }}<br>
+            {{ form.revenue }}
+            {{ form.revenue.errors }}
+        </div>
+        <div>
+            {{ form.price.label_tag }}<br>
+            {{ form.price }}
+            {{ form.price.errors }}
+        </div>
+        <div>
+            {{ form.suppliers.label_tag }}<br>
+            {{ form.suppliers }}
+            {{ form.suppliers.errors }}
+        </div>
+        <button type="submit">Save</button>
+    </form>
+    <a href="{% url 'item_list' %}">Cancel</a>
+</body>
+</html>
