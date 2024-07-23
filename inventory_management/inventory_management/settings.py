@@ -89,8 +89,12 @@ DATABASES = {
         'PASSWORD': 'Aman@123',
         'HOST': 'localhost',
         'PORT': '3306',
+        'TEST': {
+            'NAME': 'test_inventory_db',  # Name of the test database
+        },
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -133,4 +137,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+TEST_RUNNER = "pytest_runner.DjangoTestSuiteRunner"

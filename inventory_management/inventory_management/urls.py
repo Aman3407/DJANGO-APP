@@ -4,8 +4,8 @@ from rest_framework.routers import DefaultRouter
 from inventory.views import ItemDetailsViewSet,SupplierDetailsViewSet, create_user
 
 router = DefaultRouter()
-router.register(r'items',ItemDetailsViewSet)
-router.register(r'suppliers',SupplierDetailsViewSet)
+router.register(r'items', ItemDetailsViewSet, basename='item')
+router.register(r'suppliers', SupplierDetailsViewSet, basename='supplier')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

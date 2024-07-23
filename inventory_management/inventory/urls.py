@@ -12,4 +12,5 @@ urlpatterns = [
     # path('api/item/new/', views.item_new_api, name='item_new_api'),
     # path('api/item/<int:pk>/edit/', views.item_edit_api, name='item_edit_api'),
     path('stock_report/', views.stock_report, name='stock_report'),
+    path('api/purchase/', views.PurchaseAPIView.as_view(), name='purchase-api'),
 ]

@@ -26,7 +26,7 @@
 {% if most_sold_item_revenue %}
     <p>Item Name: {{ most_sold_item_revenue.name }}</p>
     <p>Quantity Sold: {{ most_sold_item_revenue.quantitySold }}</p>
-    <p>Revenue: {{ most_sold_item_revenue.quantitySold|floatformat }} x {{ most_sold_item_revenue.price }} = {{ most_sold_item_revenue.quantitySold|floatformat }} x {{ most_sold_item_revenue.price|floatformat }}</p>
+    <p>Revenue: {{ most_sold_item_revenue.revenue}}</p>
 {% else %}
     <p>No sales data available.</p>
 {% endif %}

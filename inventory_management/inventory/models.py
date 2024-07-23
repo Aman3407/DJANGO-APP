@@ -15,6 +15,5 @@ class Item(models.Model):
     revenue = models.PositiveIntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     suppliers = models.ManyToManyField(Supplier)
-
     def __str__(self):
         return self.name

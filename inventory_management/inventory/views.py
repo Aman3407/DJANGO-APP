@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 import json
 from django.shortcuts import render
 from .models import Item
-from django.db.models import F, Sum, FloatField, ExpressionWrapper
+from django.db.models import F, FloatField, ExpressionWrapper
 
 def stock_report(request):
     low_stock_items = Item.objects.filter(quantityInStock__lt=5)
@@ -118,7 +118,7 @@ def supplier_new(request):
     return render(request, 'inventory/supplier_edit.html', {'form': form})
 
 
-from rest_framework import viewsets,status
+from rest_framework import viewsets,status, generics
 from rest_framework.permissions import IsAuthenticated
 from .models import Item, Supplier
 from .serializers import ItemSerializer, SupplierSerializer,UserSerializer
@@ -126,6 +126,7 @@ from .permissions import IsAdminUserOrReadOnly
 from django.contrib.auth.models import User
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from inventory.serializers import PurchaseSerializer
 
 class ItemDetailsViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
@@ -146,3 +147,41 @@ def create_user(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class PurchaseAPIView(generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = PurchaseSerializer
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        purchases = serializer.validated_data['purchases']
+
+        errors = []
+        for purchase in purchases:
+            item_id = purchase['item_id']
+            quantity = purchase['quantity']
+
+            try:
+                item = Item.objects.get(pk=item_id)
+            except Item.DoesNotExist:
+                errors.append({'item_id': item_id, 'error': 'Item not found'})
+                continue
+
+            if quantity <= 0:
+                errors.append({'item_id': item_id, 'error': 'Quantity must be greater than zero'})
+                continue
+
+            if item.quantityInStock < quantity:
+                errors.append({'item_id': item_id, 'error': 'Not enough stock available'})
+                continue
+
+            # Update item stock and revenue
+            item.quantityInStock -= quantity
+            item.quantitySold += quantity
+            item.revenue += quantity * item.price
+            item.save()
+
+        if errors:
+            return Response({'errors': errors}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({'message': 'Purchase successful.'}, status=status.HTTP_200_OK)

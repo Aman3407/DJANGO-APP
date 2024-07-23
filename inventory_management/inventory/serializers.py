@@ -31,3 +31,10 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+class PurchaseItemSerializer(serializers.Serializer):
+    item_id = serializers.IntegerField()
+    quantity = serializers.IntegerField()
+
+class PurchaseSerializer(serializers.Serializer):
+    purchases = serializers.ListSerializer(child=PurchaseItemSerializer())
