@@ -175,6 +175,21 @@ The **Inventory Management System** is a Django-based web application designed t
     Trying to delete user that does not exists
     <img width="999" alt="image" src="https://github.com/user-attachments/assets/8ed378bb-0098-45b5-b9f2-5d3f34db065c">
 
+# Purchasing Items
+  - **POST** `/api/purchase/`
+  - **Description:** Update details of a specific supplier.
+   <img width="1002" alt="image" src="https://github.com/user-attachments/assets/3fa34d0e-4983-4eea-9695-d04855abc61e">
+   <img width="1007" alt="image" src="https://github.com/user-attachments/assets/e0eddd3f-7c40-4d55-9da5-9c18adfb1e2c">
+   <img width="999" alt="image" src="https://github.com/user-attachments/assets/c0a875c5-b9bf-407e-b818-d3783a0e9f72">
+
+    Validations
+    <img width="1014" alt="image" src="https://github.com/user-attachments/assets/cb91151c-32ba-462d-bd29-61ca545daa3c">
+
+# Stock Report
+  - **GET** `/api/purchase/`
+  - **Description:** The report provides an overview of the current inventory status, detailing the quantities of each item in stock. Additionally, it highlights items that are low in quantity, indicating the need for replenishment.
+    <img width="1055" alt="image" src="https://github.com/user-attachments/assets/39025a60-fb3d-4f9a-a92b-57682e444c1f">
+
 
 ### Testing
 
@@ -194,6 +209,12 @@ To run tests and check coverage:
    ```bash
    pytest --cov
    ```
+
+   # Coverage Results
+<img width="1004" alt="image" src="https://github.com/user-attachments/assets/39990514-6f1d-49b1-8aa7-13bd5fb993a7">
+<img width="963" alt="image" src="https://github.com/user-attachments/assets/a3e8eca0-6eeb-4264-8505-fbe1c78bd04c">
+
+
 
 ## Project Structure
 
