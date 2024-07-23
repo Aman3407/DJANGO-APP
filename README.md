@@ -1,6 +1,3 @@
-Sure! Here's the markdown file that you can copy with one click:
-
-```markdown
 # Inventory Management System
 
 ## Overview
