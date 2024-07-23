@@ -75,7 +75,7 @@ def test_update_supplier_admin(api_client, admin_user):
 @pytest.mark.django_db
 def test_delete_supplier_admin(api_client, admin_user):
     supplier = Supplier.objects.create(name='Test Supplier', contact='1234567890', email='test@example.com')
-    item = Item.objects.create(name='Test Item', quantityInStock=10, quantitySold=5, revenue=500.0, price=100.0)
+    item = Item.objects.create(item_id = 1, name='Test Item', quantityInStock=10, quantitySold=5, revenue=500.0, price=100.0)
     item.suppliers.add(supplier)
     item.save()
 
@@ -158,6 +158,7 @@ def test_item_supplier_relationship():
     supplier1 = Supplier.objects.create(name='Supplier One', contact='1234567890', email='one@example.com')
     supplier2 = Supplier.objects.create(name='Supplier Two', contact='0987654321', email='two@example.com')
     item = Item.objects.create(
+        item_id = 1, 
         name='Test Item',
         quantityInStock=10,
         quantitySold=5,

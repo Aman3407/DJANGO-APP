@@ -14,4 +14,4 @@ class ItemForm(forms.ModelForm):
     )
     class Meta:
         model = Item
-        fields = ['name', 'quantityInStock', 'quantitySold', 'revenue', 'price', 'suppliers']
+        fields = ['item_id','name', 'quantityInStock', 'quantitySold', 'revenue', 'price', 'suppliers']

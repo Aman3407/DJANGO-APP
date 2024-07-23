@@ -155,7 +155,7 @@ class PurchaseAPIView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         purchases = serializer.validated_data['purchases']
-
+        bill = 0
         errors = []
         for purchase in purchases:
             item_id = purchase['item_id']
@@ -179,9 +179,13 @@ class PurchaseAPIView(generics.GenericAPIView):
             item.quantityInStock -= quantity
             item.quantitySold += quantity
             item.revenue += quantity * item.price
+            bill +=  quantity*item.price
             item.save()
 
         if errors:
             return Response({'errors': errors}, status=status.HTTP_400_BAD_REQUEST)
 
-        return Response({'message': 'Purchase successful.'}, status=status.HTTP_200_OK)
+        return Response({
+                        'message': 'Purchase successful.',
+                        'AmountToPay' : bill
+                         }, status=status.HTTP_200_OK)

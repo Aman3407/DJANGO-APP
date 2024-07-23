@@ -25,6 +25,7 @@ def test_create_item_admin(api_client, admin_user):                 #creating it
     url = reverse('item-list')
     supplier = Supplier.objects.create(name='Test Supplier', contact='1234567890', email='test@example.com')
     data = {
+        'item_id' : 1, 
         'name': 'New Item',
         'quantityInStock': 10,
         'quantitySold': 5,
@@ -48,6 +49,7 @@ def test_create_item_worker(api_client, worker_user):
     supplier = Supplier.objects.create(name='Test Supplier', contact='1234567890', email='test@example.com')
     url = reverse('item-list')
     data = {
+        'item_id' : 1, 
         'name': 'New Item',
         'quantityInStock': 10,
         'quantitySold': 5,
@@ -60,7 +62,7 @@ def test_create_item_worker(api_client, worker_user):
 
 @pytest.mark.django_db                                          #get particular item 
 def test_retrieve_item(api_client, worker_user):
-    item = Item.objects.create(name='Test Item', quantityInStock=10, quantitySold=5, revenue=500.0, price=100.0)
+    item = Item.objects.create(item_id = 1,name='Test Item', quantityInStock=10, quantitySold=5, revenue=500.0, price=100.0)
     api_client.force_authenticate(user=worker_user)
     url = reverse('item-detail', kwargs={'pk': item.pk})
     response = api_client.get(url)
@@ -68,11 +70,12 @@ def test_retrieve_item(api_client, worker_user):
 
 @pytest.mark.django_db
 def test_update_item_admin(api_client, admin_user):           #update item
-    item = Item.objects.create(name='Test Item', quantityInStock=10, quantitySold=5, revenue=500.0, price=100.0)
+    item = Item.objects.create(item_id = 1, name='Test Item', quantityInStock=10, quantitySold=5, revenue=500.0, price=100.0)
     supplier = Supplier.objects.create(name='Test Supplier', contact='1234567890', email='test@example.com')
     api_client.force_authenticate(user=admin_user)
     url = reverse('item-detail', kwargs={'pk': item.pk})
     data = {
+        'item_id' : 1, 
         'name': 'Updated Item',
         'quantityInStock': 20,
         'quantitySold': 10,
@@ -85,7 +88,7 @@ def test_update_item_admin(api_client, admin_user):           #update item
 
 @pytest.mark.django_db
 def test_delete_item_admin(api_client, admin_user):             # delete item
-    item = Item.objects.create(name='Test Item', quantityInStock=10, quantitySold=5, revenue=500.0, price=100.0)
+    item = Item.objects.create(item_id = 1, name='Test Item', quantityInStock=10, quantitySold=5, revenue=500.0, price=100.0)
     api_client.force_authenticate(user=admin_user)
     url = reverse('item-detail', kwargs={'pk': item.pk})
     response = api_client.delete(url)
@@ -93,10 +96,11 @@ def test_delete_item_admin(api_client, admin_user):             # delete item
 
 @pytest.mark.django_db
 def test_worker_update_item(api_client, worker_user):           # update item
-    item = Item.objects.create(name='Test Item', quantityInStock=10, quantitySold=5, revenue=500.0, price=100.0)
+    item = Item.objects.create(item_id = 1, name='Test Item', quantityInStock=10, quantitySold=5, revenue=500.0, price=100.0)
     api_client.force_authenticate(user=worker_user)
     url = reverse('item-detail', kwargs={'pk': item.pk})
     data = {
+        'item_id' : 1, 
         'name': 'Updated Item Name',
         'quantityInStock': 20,
         'quantitySold': 10,
@@ -109,7 +113,7 @@ def test_worker_update_item(api_client, worker_user):           # update item
 
 @pytest.mark.django_db      
 def test_worker_delete_item(api_client, worker_user):           #worker trying to delete item
-    item = Item.objects.create(name='Test Item', quantityInStock=10, quantitySold=5, revenue=500.0, price=100.0)
+    item = Item.objects.create(item_id = 1, name='Test Item', quantityInStock=10, quantitySold=5, revenue=500.0, price=100.0)
     api_client.force_authenticate(user=worker_user)
     url = reverse('item-detail', kwargs={'pk': item.pk})
     response = api_client.delete(url)
@@ -121,6 +125,7 @@ def test_create_item_missing_field(api_client, admin_user):     #missing field
     api_client.force_authenticate(user=admin_user)
     url = reverse('item-list')
     data = {
+        'item_id' : 1,
         'name': 'Test Item',
         'quantityInStock': 10,
         # Missing quantitySold, revenue, and price fields
@@ -133,6 +138,7 @@ def test_create_item_invalid_price(api_client, admin_user):     # invalid price
     api_client.force_authenticate(user=admin_user)
     url = reverse('item-list')
     data = {
+        'item_id' : 1, 
         'name': 'Test Item',
         'quantityInStock': 10,
         'quantitySold': 5,
@@ -144,10 +150,11 @@ def test_create_item_invalid_price(api_client, admin_user):     # invalid price
 
 @pytest.mark.django_db
 def test_update_item_invalid_data(api_client, admin_user):      # invalid date
-    item = Item.objects.create(name='Test Item', quantityInStock=10, quantitySold=5, revenue=500, price=100.0)
+    item = Item.objects.create(item_id = 1,name='Test Item', quantityInStock=10, quantitySold=5, revenue=500, price=100.0)
     api_client.force_authenticate(user=admin_user)
     url = reverse('item-detail', kwargs={'pk': item.pk})
     data = {
+        'item_id' : 1, 
         'name': 'Updated Item',
         'quantityInStock': -10,  # Invalid quantity
         'quantitySold': 5,
@@ -163,6 +170,7 @@ def test_create_item_with_nonexistent_supplier(api_client, admin_user):         
     url = reverse('item-list')
     non_existent_supplier_id = -1  # using -1 as the non-existent supplier ID
     data = {
+        'item_id' : 1, 
         'name': 'Test Item',
         'quantityInStock': 10,
         'quantitySold': 5,
@@ -177,8 +185,8 @@ def test_create_item_with_nonexistent_supplier(api_client, admin_user):         
 @pytest.mark.django_db
 def test_purchase_multiple_items_success():         #purchase items 
     user = User.objects.create_user(username='testuser', password='password')
-    item1 = Item.objects.create(name='Item 1', quantityInStock=10, quantitySold=0, revenue=0.0, price=100.0)
-    item2 = Item.objects.create(name='Item 2', quantityInStock=20, quantitySold=0, revenue=0.0, price=150.0)
+    item1 = Item.objects.create(item_id = 1, name='Item 1', quantityInStock=10, quantitySold=0, revenue=0.0, price=100.0)
+    item2 = Item.objects.create(item_id = 2, name='Item 2', quantityInStock=20, quantitySold=0, revenue=0.0, price=150.0)
     
     client = APIClient()
     client.force_authenticate(user=user)
@@ -203,7 +211,7 @@ def test_purchase_multiple_items_success():         #purchase items
 @pytest.mark.django_db
 def test_purchase_multiple_items_with_errors():
     user = User.objects.create_user(username='testuser', password='password')
-    item1 = Item.objects.create(name='Item 1', quantityInStock=10, quantitySold=0, revenue=0.0, price=100.0)
+    item1 = Item.objects.create(item_id = 1,name='Item 1', quantityInStock=10, quantitySold=0, revenue=0.0, price=100.0)
     
     client = APIClient()
     client.force_authenticate(user=user)
@@ -222,3 +230,8 @@ def test_purchase_multiple_items_with_errors():
     assert any(error['item_id'] == 999 and error['error'] == 'Item not found' for error in errors)
     assert any(error['item_id'] == item1.id and error['error'] == 'Quantity must be greater than zero' for error in errors)
 
+@pytest.mark.django_db                                          # get list of all items
+def test_get_stock_report(api_client, worker_user):
+    api_client.force_authenticate(user=worker_user)
+    response = api_client.get('/')
+    assert response.status_code == status.HTTP_200_OK
