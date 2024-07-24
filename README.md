@@ -2,17 +2,17 @@
 
 ## Overview
 
-The **Inventory Management System** is a Django-based web application designed to manage inventory items and suppliers. The application includes features for creating, reading, updating, and deleting both items and suppliers, as well as providing a reporting feature to track stock and sales. It also allows user to purchase multiple items at once and also reflects the changes on the database by decreasing the amount of stock left and increasing the revenue genrerated. The application uses Django REST Framework to provide a set of RESTful API endpoints for interacting with the inventory data.
+The **Inventory Management System** is a Django-based web application designed to manage inventory items and suppliers. The application includes features for creating, reading, updating, and deleting both items and suppliers, as well as providing a reporting feature to track stock and sales. It also allows users to purchase multiple items at once and reflects the changes in the database by decreasing the amount of stock left and increasing the revenue generated. The application uses Django REST Framework to provide a set of RESTful API endpoints for interacting with the inventory data.
 
 ## Project Setup
 
 ### Prerequisites
 
 - Python
-- Django 
-- Django REST Framework 
-- MySQL 
-- pytest 
+- Django
+- Django REST Framework
+- MySQL
+- pytest
 
 ### Installation Steps
 
@@ -91,101 +91,90 @@ The **Inventory Management System** is a Django-based web application designed t
 - **List Items**
   - **GET** `/api/items/`
   - **Description:** Retrieve a list of all items.
-   <img width="1010" alt="image" src="https://github.com/user-attachments/assets/3ef248f8-8235-4ff9-bf89-e97c98c603ad">
+  ![List Items](https://github.com/user-attachments/assets/3ef248f8-8235-4ff9-bf89-e97c98c603ad)
 
 - **Create Item**
   - **POST** `/api/items/`
   - **Description:** Create a new item.
-    
-    Admin Creating item
-     <img width="1019" alt="image" src="https://github.com/user-attachments/assets/3f335dcc-55eb-4cb9-8454-f6a92ce8b9ad">
-    User Creating Item
-    <img width="1017" alt="image" src="https://github.com/user-attachments/assets/22970965-47b0-4041-b49c-1d351f34adab">
-    Trying to create same item twice
-    <img width="1040" alt="image" src="https://github.com/user-attachments/assets/7224233f-4adb-4e4b-86d7-b2fd484f42b4">
+  - Admin Creating item:
+    ![Admin Creating Item](https://github.com/user-attachments/assets/3f335dcc-55eb-4cb9-8454-f6a92ce8b9ad)
+  - User Creating Item:
+    ![User Creating Item](https://github.com/user-attachments/assets/22970965-47b0-4041-b49c-1d351f34adab)
+  - Trying to create the same item twice:
+    ![Create Same Item Twice](https://github.com/user-attachments/assets/7224233f-4adb-4e4b-86d7-b2fd484f42b4)
 
 - **Retrieve Item**
   - **GET** `/api/items/{id}/`
   - **Description:** Retrieve details of a specific item.
-    <img width="1011" alt="image" src="https://github.com/user-attachments/assets/e3286dca-39f7-4d59-95e2-7fa4d6339eb7">
-
-  if item does not exits
-  <img width="1008" alt="image" src="https://github.com/user-attachments/assets/848743fb-3811-4703-a3fb-e647f0e96571">
+  ![Retrieve Item](https://github.com/user-attachments/assets/e3286dca-39f7-4d59-95e2-7fa4d6339eb7)
+  - If item does not exist:
+    ![Item Not Found](https://github.com/user-attachments/assets/848743fb-3811-4703-a3fb-e647f0e96571)
 
 - **Update Item**
   - **PUT** `/api/items/{id}/`
   - **Description:** Update details of a specific item.
-    Admin updating item
-    <img width="997" alt="image" src="https://github.com/user-attachments/assets/bec26a5b-3331-463c-b673-32ec6fc65785">
-    User trying to update item
-    <img width="1019" alt="image" src="https://github.com/user-attachments/assets/d5afcc4e-43f0-4b4c-8158-743b9093ab56">
-
+  - Admin updating item:
+    ![Admin Updating Item](https://github.com/user-attachments/assets/bec26a5b-3331-463c-b673-32ec6fc65785)
+  - User trying to update item:
+    ![User Updating Item](https://github.com/user-attachments/assets/d5afcc4e-43f0-4b4c-8158-743b9093ab56)
 
 - **Delete Item**
   - **DELETE** `/api/items/{id}/`
   - **Description:** Delete a specific item.
-    Admin deleting item
-    <img width="1019" alt="image" src="https://github.com/user-attachments/assets/a33dd443-ec75-4f89-8c5a-18b0f880dfbb">
-    <img width="1004" alt="image" src="https://github.com/user-attachments/assets/04be944f-51f8-4ab9-9b67-c3a580a56c6a">
-    <img width="1027" alt="image" src="https://github.com/user-attachments/assets/baaeb574-3be4-4ecd-8aa9-073d164f6d62">
-
-    User trying to delete item
-    <img width="1011" alt="image" src="https://github.com/user-attachments/assets/0a39256d-d689-4078-9936-c95cc7fe83b6">
-
+  - Admin deleting item:
+    ![Admin Deleting Item](https://github.com/user-attachments/assets/a33dd443-ec75-4f89-8c5a-18b0f880dfbb)
+    ![Confirm Deletion](https://github.com/user-attachments/assets/04be944f-51f8-4ab9-9b67-c3a580a56c6a)
+    ![Item Deleted](https://github.com/user-attachments/assets/baaeb574-3be4-4ecd-8aa9-073d164f6d62)
+  - User trying to delete item:
+    ![User Deleting Item](https://github.com/user-attachments/assets/0a39256d-d689-4078-9936-c95cc7fe83b6)
 
 #### Supplier Endpoints
 
 - **List Suppliers**
   - **GET** `/api/suppliers/`
   - **Description:** Retrieve a list of all suppliers.
-    <img width="1009" alt="image" src="https://github.com/user-attachments/assets/58a79b80-9c57-426b-b26d-72c4cb5d0a69">
+  ![List Suppliers](https://github.com/user-attachments/assets/58a79b80-9c57-426b-b26d-72c4cb5d0a69)
 
 - **Create Supplier**
   - **POST** `/api/suppliers/`
   - **Description:** Create a new supplier.
-    Admin Creating Supplier
-    <img width="1005" alt="image" src="https://github.com/user-attachments/assets/4ed12bb9-425e-44e7-a772-733de7ea40ce">
-
-    if admin try to create supplier with same contact or email
-    <img width="1012" alt="image" src="https://github.com/user-attachments/assets/a5c28202-5b38-4902-bfe7-b3140b804cd1">
-
-    User Creating Supplier
-    <img width="1003" alt="image" src="https://github.com/user-attachments/assets/3cc8bdf2-88b2-4fe3-bebe-3fadee4b476e">
+  - Admin Creating Supplier:
+    ![Admin Creating Supplier](https://github.com/user-attachments/assets/4ed12bb9-425e-44e7-a772-733de7ea40ce)
+  - If admin tries to create supplier with same contact or email:
+    ![Duplicate Supplier](https://github.com/user-attachments/assets/a5c28202-5b38-4902-bfe7-b3140b804cd1)
+  - User Creating Supplier:
+    ![User Creating Supplier](https://github.com/user-attachments/assets/3cc8bdf2-88b2-4fe3-bebe-3fadee4b476e)
 
 - **Retrieve Supplier**
   - **GET** `/api/suppliers/{id}/`
   - **Description:** Retrieve details of a specific supplier.
-    <img width="1004" alt="image" src="https://github.com/user-attachments/assets/d15e3460-414d-4b28-b1b9-c4e0dddbb0da">
-
+  ![Retrieve Supplier](https://github.com/user-attachments/assets/d15e3460-414d-4b28-b1b9-c4e0dddbb0da)
 
 - **Update Supplier**
   - **PUT** `/api/suppliers/{id}/`
   - **Description:** Update details of a specific supplier.
-    <img width="1015" alt="image" src="https://github.com/user-attachments/assets/6b35deb5-a0eb-4ea8-82f7-658153c6ce43">
+  ![Update Supplier](https://github.com/user-attachments/assets/6b35deb5-a0eb-4ea8-82f7-658153c6ce43)
 
 - **Delete Supplier**
   - **DELETE** `/api/suppliers/{id}/`
   - **Description:** Delete a specific supplier.
- 
-    Admin deleting supplier
-    <img width="1003" alt="image" src="https://github.com/user-attachments/assets/bfc2092a-d4e4-4b0e-8765-431f5fd47b77">
-    <img width="1012" alt="image" src="https://github.com/user-attachments/assets/9423e0be-9ca2-47a9-89aa-2885de99297e">
-    <img width="1011" alt="image" src="https://github.com/user-attachments/assets/b4f52d1d-614f-490e-8a52-b3f427800063">
+  - Admin deleting supplier:
+    ![Admin Deleting Supplier](https://github.com/user-attachments/assets/bfc2092a-d4e4-4b0e-8765-431f5fd47b77)
+    ![Confirm Deletion](https://github.com/user-attachments/assets/9423e0be-9ca2-47a9-89aa-2885de99297e)
+    ![Supplier Deleted](https://github.com/user-attachments/assets/b4f52d1d-614f-490e-8a52-b3f427800063)
+  - Trying to delete supplier that does not exist:
+    ![Supplier Not Found](https://github.com/user-attachments/assets/8ed378bb-0098-45b5-b9f2-5d3f34db065c)
 
-    Trying to delete user that does not exists
-    <img width="999" alt="image" src="https://github.com/user-attachments/assets/8ed378bb-0098-45b5-b9f2-5d3f34db065c">
+#### Purchasing Items
+- **POST** `/api/purchase/`
+  - **Description:** Purchase multiple items at once and reflect changes in the database.
+  ![Purchase Items](https://github.com/user-attachments/assets/3fa34d0e-4983-4eea-9695-d04855abc61e)
+  ![Purchase Confirm](https://github.com/user-attachments/assets/e0eddd3f-7c40-4d55-9da5-9c18adfb1e2c)
+  ![Purchase Success](https://github.com/user-attachments/assets/c0a875c5-b9bf-407e-b818-d3783a0e9f72)
+  - Validations:
+    ![Purchase Validation](https://github.com/user-attachments/assets/cb91151c-32ba-462d-bd29-61ca545daa3c)
 
-# Purchasing Items
-  - **POST** `/api/purchase/`
-  - **Description:** Update details of a specific supplier.
-   <img width="1002" alt="image" src="https://github.com/user-attachments/assets/3fa34d0e-4983-4eea-9695-d04855abc61e">
-   <img width="1007" alt="image" src="https://github.com/user-attachments/assets/e0eddd3f-7c40-4d55-9da5-9c18adfb1e2c">
-   <img width="999" alt="image" src="https://github.com/user-attachments/assets/c0a875c5-b9bf-407e-b818-d3783a0e9f72">
-
-    Validations
-    <img width="1014" alt="image" src="https://github.com/user-attachments/assets/cb91151c-32ba-462d-bd29-61ca545daa3c">
-
-# Stock Report
+#### Stock Report
   - **GET** `/api/purchase/`
   - **Description:** The report provides an overview of the current inventory status, detailing the quantities of each item in stock. Additionally, it highlights items that are low in quantity, indicating the need for replenishment.
     <img width="1055" alt="image" src="https://github.com/user-attachments/assets/39025a60-fb3d-4f9a-a92b-57682e444c1f">
