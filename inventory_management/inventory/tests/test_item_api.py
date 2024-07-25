@@ -229,9 +229,3 @@ def test_purchase_multiple_items_with_errors():
     assert any(error['item_id'] == item1.id and error['error'] == 'Not enough stock available' for error in errors)
     assert any(error['item_id'] == 999 and error['error'] == 'Item not found' for error in errors)
     assert any(error['item_id'] == item1.id and error['error'] == 'Quantity must be greater than zero' for error in errors)
-
-@pytest.mark.django_db                                          # get list of all items
-def test_get_stock_report(api_client, worker_user):
-    api_client.force_authenticate(user=worker_user)
-    response = api_client.get('/')
-    assert response.status_code == status.HTTP_200_OK

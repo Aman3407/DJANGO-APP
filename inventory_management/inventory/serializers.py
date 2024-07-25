@@ -6,14 +6,16 @@ class SupplierSerializer(serializers.ModelSerializer):
     class Meta:
         model = Supplier
         fields = '__all__'
-
-class ItemSerializer(serializers.ModelSerializer):
-    suppliers = serializers.PrimaryKeyRelatedField(many=True, queryset=Supplier.objects.all())
-
+    
+class ItemAdminSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields = '__all__'
 
+class ItemCustomerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Item
+        fields = ['item_id', 'name', 'price']
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -38,3 +40,13 @@ class PurchaseItemSerializer(serializers.Serializer):
 
 class PurchaseSerializer(serializers.Serializer):
     purchases = serializers.ListSerializer(child=PurchaseItemSerializer())
+
+class ItemAdminSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Item
+        fields = '__all__'
+
+class ItemCustomerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Item
+        fields = ['item_id', 'name', 'price']
