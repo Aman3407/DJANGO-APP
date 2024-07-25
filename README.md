@@ -103,12 +103,25 @@ The **Inventory Management System** is a Django-based web application designed t
   - Trying to create the same item twice:
     ![Create Same Item Twice](https://github.com/user-attachments/assets/7224233f-4adb-4e4b-86d7-b2fd484f42b4)
 
-- **Retrieve Item**
+- **Retrieve Items**
   - **GET** `/api/items/{id}/`
   - **Description:** Retrieve details of a specific item.
+  - Admin Retrieving item:
   ![Retrieve Item](https://github.com/user-attachments/assets/e3286dca-39f7-4d59-95e2-7fa4d6339eb7)
+  - User Retrieving Item:
+    <img width="1011" alt="image" src="https://github.com/user-attachments/assets/8b1619d0-3258-45be-97d1-1fcea4759606">
   - If item does not exist:
     ![Item Not Found](https://github.com/user-attachments/assets/848743fb-3811-4703-a3fb-e647f0e96571)
+ 
+- **Retrieve Specific Item**
+  - **GET** `/api/items/{id}/`
+  - **Description:** Retrieve details of a specific item.
+  - Admin Retrieving item:
+    <img width="1018" alt="image" src="https://github.com/user-attachments/assets/7e829fcb-c7c2-4445-b927-bb6fa564ec7d">
+  - User Retrieving Item:
+    <img width="1015" alt="image" src="https://github.com/user-attachments/assets/60fad77d-7fbf-413a-af94-3ecc2a91425a">
+  - If item does not exist:
+    <img width="1025" alt="image" src="https://github.com/user-attachments/assets/3e60049a-c9cb-481f-9af1-982f2bef5105">
 
 - **Update Item**
   - **PUT** `/api/items/{id}/`
@@ -166,7 +179,7 @@ The **Inventory Management System** is a Django-based web application designed t
     ![Supplier Not Found](https://github.com/user-attachments/assets/8ed378bb-0098-45b5-b9f2-5d3f34db065c)
 
 #### Purchasing Items
-- **POST** `/api/purchase/`
+- **PUT** `/api/purchase/`
   - **Description:** Purchase multiple items at once and reflect changes in the database.
   ![Purchase Items](https://github.com/user-attachments/assets/3fa34d0e-4983-4eea-9695-d04855abc61e)
   ![Purchase Confirm](https://github.com/user-attachments/assets/e0eddd3f-7c40-4d55-9da5-9c18adfb1e2c)
