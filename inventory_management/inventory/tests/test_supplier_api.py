@@ -2,9 +2,8 @@ import pytest
 from django.urls import reverse
 from rest_framework.test import APIClient
 from rest_framework import status
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User
 from inventory.models import Item, Supplier
-from django.db.utils import IntegrityError
 
 @pytest.fixture
 def api_client():
@@ -40,7 +39,7 @@ def test_list_suppliers_worker(api_client, worker_user):
     assert response.status_code == status.HTTP_200_OK
 
 @pytest.mark.django_db                                      
-def test_create_supplier_worker(api_client, worker_user):       # 
+def test_create_supplier_worker(api_client, worker_user):       # create supplier with worker
     api_client.force_authenticate(user=worker_user)
     url = reverse('supplier-list')
     data = {
@@ -52,7 +51,7 @@ def test_create_supplier_worker(api_client, worker_user):       #
     assert response.status_code == status.HTTP_403_FORBIDDEN
 
 @pytest.mark.django_db
-def test_retrieve_supplier(api_client, worker_user):
+def test_retrieve_supplier(api_client, worker_user):            # get supplier with worker
     supplier = Supplier.objects.create(name='Test Supplier', contact='1234567890', email='test@example.com')
     api_client.force_authenticate(user=worker_user)
     url = reverse('supplier-detail', kwargs={'pk': supplier.pk})
@@ -60,7 +59,7 @@ def test_retrieve_supplier(api_client, worker_user):
     assert response.status_code == status.HTTP_200_OK
 
 @pytest.mark.django_db
-def test_update_supplier_admin(api_client, admin_user):
+def test_update_supplier_admin(api_client, admin_user):         # get supplier with admin
     supplier = Supplier.objects.create(name='Test Supplier', contact='1234567890', email='test@example.com')
     api_client.force_authenticate(user=admin_user)
     url = reverse('supplier-detail', kwargs={'pk': supplier.pk})
@@ -73,7 +72,7 @@ def test_update_supplier_admin(api_client, admin_user):
     assert response.status_code == status.HTTP_200_OK
 
 @pytest.mark.django_db
-def test_delete_supplier_admin(api_client, admin_user):
+def test_delete_supplier_admin(api_client, admin_user):         # delete supplier admin
     supplier = Supplier.objects.create(name='Test Supplier', contact='1234567890', email='test@example.com')
     item = Item.objects.create(item_id = 1, name='Test Item', quantityInStock=10, quantitySold=5, revenue=500.0, price=100.0)
     item.suppliers.add(supplier)
@@ -89,7 +88,7 @@ def test_delete_supplier_admin(api_client, admin_user):
     assert supplier not in item.suppliers.all()
 
 @pytest.mark.django_db
-def test_create_supplier_missing_field(api_client, admin_user):
+def test_create_supplier_missing_field(api_client, admin_user):         # missing field supplier
     api_client.force_authenticate(user=admin_user)
     url = reverse('supplier-list')
     data = {
