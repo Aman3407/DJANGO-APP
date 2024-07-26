@@ -1,4 +1,4 @@
-# Inventory Management System
+<img width="1004" alt="image" src="https://github.com/user-attachments/assets/dd39cbc7-a472-4e2e-b3a8-f1f6fb082d7b"># Inventory Management System
 
 ## Overview
 
@@ -91,7 +91,14 @@ The **Inventory Management System** is a Django-based web application designed t
 - **List Items**
   - **GET** `/api/items/`
   - **Description:** Retrieve a list of all items.
-  ![List Items](https://github.com/user-attachments/assets/3ef248f8-8235-4ff9-bf89-e97c98c603ad)
+
+   - Admin Accessing items:
+     <img width="1021" alt="image" src="https://github.com/user-attachments/assets/56ed4ee1-cc29-4af6-a18c-bf9e53accfd8">
+  - User Accessing Items:
+    <img width="1019" alt="image" src="https://github.com/user-attachments/assets/f0088741-f252-444f-860d-a29dc6dc43b5">
+  - Allowing access to non logged in user
+   <img width="1014" alt="image" src="https://github.com/user-attachments/assets/5c5b9258-07ae-4c51-88f6-c6bf799db425">
+
 
 - **Create Item**
   - **POST** `/api/items/`
@@ -107,7 +114,8 @@ The **Inventory Management System** is a Django-based web application designed t
   - **GET** `/api/items/{id}/`
   - **Description:** Retrieve details of a specific item.
   - Admin Retrieving item:
-  ![Retrieve Item](https://github.com/user-attachments/assets/e3286dca-39f7-4d59-95e2-7fa4d6339eb7)
+    <img width="1017" alt="image" src="https://github.com/user-attachments/assets/660190ea-e070-4bcc-a906-4313db095ee9">
+
   - User Retrieving Item:
     <img width="1011" alt="image" src="https://github.com/user-attachments/assets/8b1619d0-3258-45be-97d1-1fcea4759606">
   - If item does not exist:
@@ -146,7 +154,11 @@ The **Inventory Management System** is a Django-based web application designed t
 - **List Suppliers**
   - **GET** `/api/suppliers/`
   - **Description:** Retrieve a list of all suppliers.
-  ![List Suppliers](https://github.com/user-attachments/assets/58a79b80-9c57-426b-b26d-72c4cb5d0a69)
+  - Admin Accessing Suppliers:
+    <img width="1004" alt="image" src="https://github.com/user-attachments/assets/9a44d2e1-31b0-454d-9ed8-c4db0517a11c">
+  - User Accessing Suppliers:
+    <img width="1004" alt="image" src="https://github.com/user-attachments/assets/4908ddf2-c618-4323-b636-264f57996ed7">
+
 
 - **Create Supplier**
   - **POST** `/api/suppliers/`
@@ -161,7 +173,12 @@ The **Inventory Management System** is a Django-based web application designed t
 - **Retrieve Supplier**
   - **GET** `/api/suppliers/{id}/`
   - **Description:** Retrieve details of a specific supplier.
-  ![Retrieve Supplier](https://github.com/user-attachments/assets/d15e3460-414d-4b28-b1b9-c4e0dddbb0da)
+  - Admin Accessing Supplier:
+    <img width="1024" alt="image" src="https://github.com/user-attachments/assets/9fc93c28-49dd-4213-ab79-502076f7eabd">
+  - User Accessing Supplier:
+    <img width="1006" alt="image" src="https://github.com/user-attachments/assets/412c31e7-9ea0-433e-bce9-92a4c6129983">
+  - Trying to Access Supplier that does not exists:
+    <img width="1014" alt="image" src="https://github.com/user-attachments/assets/31a0fc39-a20a-4ec0-83f9-20f39aa18220">
 
 - **Update Supplier**
   - **PUT** `/api/suppliers/{id}/`
