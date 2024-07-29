@@ -40,13 +40,3 @@ class PurchaseItemSerializer(serializers.Serializer):
 
 class PurchaseSerializer(serializers.Serializer):
     purchases = serializers.ListSerializer(child=PurchaseItemSerializer())
-
-class ItemAdminSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Item
-        fields = '__all__'
-
-class ItemCustomerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Item
-        fields = ['item_id', 'name', 'price']
