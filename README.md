@@ -62,7 +62,7 @@ The **Inventory Management System** is a Django-based web application designed t
            'ENGINE': 'django.db.backends.mysql',
            'NAME': 'inventory_db',
            'USER': 'inventory_user',
-           'PASSWORD': 'Aman@123',
+           'PASSWORD': 'Enter your password',
            'HOST': 'localhost',
            'PORT': '3306',
        }
