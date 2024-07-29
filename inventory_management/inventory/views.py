@@ -15,7 +15,7 @@ logger = logging.getLogger('inventory')
 class ItemDetailsViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     permission_classes = [IsAdminUserOrReadOnlyForItems]
-    logger = logging.getLogger('myapp')
+    logger = logging.getLogger('Item')
 
     def get_serializer_class(self):
         logger.info(f'User {self.request.user} is accessing ItemDetailsViewSet')
@@ -27,7 +27,7 @@ class SupplierDetailsViewSet(viewsets.ModelViewSet):
     queryset = Supplier.objects.all()
     serializer_class = SupplierSerializer
     permission_classes = [IsAuthenticated, IsAdminUserOrReadOnlyForSuppliers]
-    logger = logging.getLogger('myapp')
+    logger = logging.getLogger('Supplier')
 
     def list(self, request, *args, **kwargs):
         logger.info(f'User {request.user} is listing suppliers')
@@ -37,7 +37,6 @@ class SupplierDetailsViewSet(viewsets.ModelViewSet):
 
 @api_view(['POST'])
 def create_user(request):
-    logger = logging.getLogger('myapp')
     logger.info('Creating a new user')
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
@@ -50,7 +49,6 @@ def create_user(request):
 class PurchaseAPIView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = PurchaseSerializer
-    logger = logging.getLogger('myapp')
 
     def put(self, request):
         logger.info(f'User {request.user} is making a purchase')
@@ -102,7 +100,6 @@ class PurchaseAPIView(generics.GenericAPIView):
 
 
 def stock_report(request):
-    logger = logging.getLogger('myapp')
     logger.info('Generating stock report')
     low_stock_items = Item.objects.filter(quantityInStock__lt=5)
     most_sold_item_revenue = Item.objects.annotate(
