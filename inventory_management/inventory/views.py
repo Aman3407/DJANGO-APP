@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import SupplierSerializer,UserSerializer, PurchaseSerializer, ItemAdminSerializer, ItemCustomerSerializer
 from .permissions import IsAdminUserOrReadOnlyForItems,IsAdminUserOrReadOnlyForSuppliers
 from rest_framework.response import Response
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 import logging
 
@@ -22,6 +23,14 @@ class ItemDetailsViewSet(viewsets.ModelViewSet):
         if self.request.user.is_staff or self.request.user.is_superuser:
             return ItemAdminSerializer
         return ItemCustomerSerializer
+    def get_queryset(self):
+        search_query = self.request.query_params.get('search', '')
+        if search_query:
+            queryset = Item.objects.filter(name__icontains=search_query)
+            logger.info(f'Search query: {search_query}, Found items: {queryset.count()}')
+        else:
+            queryset = Item.objects.all()
+        return queryset
 
 class SupplierDetailsViewSet(viewsets.ModelViewSet):
     queryset = Supplier.objects.all()
@@ -32,8 +41,6 @@ class SupplierDetailsViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         logger.info(f'User {request.user} is listing suppliers')
         return super().list(request, *args, **kwargs)
-
-
 
 @api_view(['POST'])
 def create_user(request):
@@ -98,22 +105,23 @@ class PurchaseAPIView(generics.GenericAPIView):
                          }, status=status.HTTP_200_OK)
 
 
+class StockReportAPIView(generics.GenericAPIView):
+    permission_classes = [IsAdminUserOrReadOnlyForSuppliers]
+    def get(self, request):
+        logger.info('Generating stock report')
+        low_stock_items = Item.objects.filter(quantityInStock__lt=5)
+        most_sold_item_revenue = Item.objects.annotate(
+                total_revenue=ExpressionWrapper(
+                    F('quantitySold') * F('price'),
+                    output_field=FloatField()  
+                )
+            ).order_by('-total_revenue').first()
+        most_sold_item_quantity = Item.objects.order_by('-quantitySold').first()
 
-def stock_report(request):
-    logger.info('Generating stock report')
-    low_stock_items = Item.objects.filter(quantityInStock__lt=5)
-    most_sold_item_revenue = Item.objects.annotate(
-            total_revenue=ExpressionWrapper(
-                F('quantitySold') * F('price'),
-                output_field=FloatField()  
-            )
-        ).order_by('-total_revenue').first()
-    most_sold_item_quantity = Item.objects.order_by('-quantitySold').first()
-
-    context = {
-        'low_stock_items': low_stock_items,
-        'most_sold_item_revenue': most_sold_item_revenue,
-        'most_sold_item_quantity': most_sold_item_quantity,
-    }
-    logger.info('Stock report generated successfully')
-    return render(request, 'inventory/stock_report.html', context)
+        context = {
+            'low_stock_items': low_stock_items,
+            'most_sold_item_revenue': most_sold_item_revenue,
+            'most_sold_item_quantity': most_sold_item_quantity,
+        }
+        logger.info('Stock report generated successfully')
+        return render(request, 'inventory/stock_report.html', context)

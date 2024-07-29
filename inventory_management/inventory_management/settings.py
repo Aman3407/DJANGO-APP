@@ -164,12 +164,6 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'verbose',
         },
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs', 'inventory_debug.log'),
-            'formatter': 'verbose',
-        },
         'inventory_file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
@@ -178,21 +172,10 @@ LOGGING = {
         },
     },
     'loggers': {
-        'django': {
-            'handlers': ['console', 'file'],
-            'level': 'INFO',  # Set to INFO to reduce the number of DEBUG messages
-            'propagate': True,
-        },
-        'inventory': {  
+        '': {  
             'handlers': ['console', 'inventory_file'],
             'level': 'DEBUG',
             'propagate': False,
         },
-        'django.db.backends': {
-            'handlers': ['console', 'file'],
-            'level': 'INFO',  # Set to INFO to reduce the number of DEBUG messages
-            'propagate': False,
-        },
     },
 }
-
