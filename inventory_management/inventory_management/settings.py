@@ -11,7 +11,11 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv # type: ignore
 
+# Load environment variables from .env file
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,13 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-77&brrh0wtq2n8jjo)5hx8wndx)(c%9qgugps*=8cgw58c_3$p'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -84,13 +87,13 @@ WSGI_APPLICATION = 'inventory_management.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'inventory_db',
-        'USER': 'inventory_user',
-        'PASSWORD': 'Aman@123',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': os.getenv('DJANGO_DB_NAME'),
+        'USER': os.getenv('DJANGO_DB_USER'),
+        'PASSWORD': os.getenv('DJANGO_DB_PASSWORD'),
+        'HOST': os.getenv('DJANGO_DB_HOST'),  # Should match the service name in docker-compose
+        'PORT': os.getenv('DJANGO_DB_PORT'),
         'TEST': {
-            'NAME': 'test_inventory_db',  # Name of the test database
+            'NAME': 'test_' + os.getenv('DB_NAME'),
         },
     }
 }
@@ -138,3 +141,58 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 TEST_RUNNER = "pytest_runner.DjangoTestSuiteRunner"
+    
+log_dir = Path(BASE_DIR) / 'logs'
+log_dir.mkdir(exist_ok=True)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',  # Set to INFO to reduce the number of DEBUG messages
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'inventory_debug.log'),
+            'formatter': 'verbose',
+        },
+        'inventory_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'inventory_debug.log'),
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',  # Set to INFO to reduce the number of DEBUG messages
+            'propagate': True,
+        },
+        'inventory': {  
+            'handlers': ['console', 'inventory_file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'django.db.backends': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',  # Set to INFO to reduce the number of DEBUG messages
+            'propagate': False,
+        },
+    },
+}
+
