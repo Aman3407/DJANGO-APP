@@ -93,7 +93,7 @@ DATABASES = {
         'HOST': os.getenv('DJANGO_DB_HOST'),  # Should match the service name in docker-compose
         'PORT': os.getenv('DJANGO_DB_PORT'),
         'TEST': {
-            'NAME': 'test_' + os.getenv('DB_NAME'),
+            'NAME': 'test_' + os.getenv('DJANGO_DB_NAME'),
         },
     }
 }
