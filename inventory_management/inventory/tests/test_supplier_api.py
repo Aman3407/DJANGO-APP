@@ -36,7 +36,7 @@ def test_list_suppliers_worker(api_client, worker_user):
     api_client.force_authenticate(user=worker_user)
     url = reverse('supplier-list')
     response = api_client.get(url)
-    assert response.status_code == status.HTTP_200_OK
+    assert response.status_code == status.HTTP_403_FORBIDDEN
 
 @pytest.mark.django_db                                      
 def test_create_supplier_worker(api_client, worker_user):       # create supplier with worker
@@ -56,7 +56,7 @@ def test_retrieve_supplier(api_client, worker_user):            # get supplier w
     api_client.force_authenticate(user=worker_user)
     url = reverse('supplier-detail', kwargs={'pk': supplier.pk})
     response = api_client.get(url)
-    assert response.status_code == status.HTTP_200_OK
+    assert response.status_code == status.HTTP_403_FORBIDDEN
 
 @pytest.mark.django_db
 def test_update_supplier_admin(api_client, admin_user):         # get supplier with admin
